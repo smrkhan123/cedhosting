@@ -1,4 +1,6 @@
-<?php include('header.php'); ?>
+<?php 
+session_start();
+include('header.php'); ?>
 		<!--services--->
 				<div class="content">
 					<div class="brilliant-section">

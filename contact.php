@@ -1,4 +1,6 @@
-<?php include('header.php'); ?>
+<?php 
+session_start();
+include('header.php'); ?>
 		<!-- //contact -->
 				<div class="content">
 					<div class="contact">

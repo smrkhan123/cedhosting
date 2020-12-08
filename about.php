@@ -1,4 +1,6 @@
-<?php include('header.php'); ?>
+<?php 
+session_start();
+include('header.php'); ?>
 		<!--about--->
 				<div class="content">
 					<div class="about-section">

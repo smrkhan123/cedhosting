@@ -1,4 +1,6 @@
-<?php include('header.php'); ?>
+<?php 
+session_start();
+include('header.php'); ?>
 		<!---blog--->
 				<div class="content">
 					<div class="blog">

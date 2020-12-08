@@ -1,4 +1,20 @@
-<?php include('header.php'); ?>
+<?php 
+	require_once('classes/User.php');
+	$error = '';
+	if (isset($_SESSION['id'])) {
+		header("location:index.php");
+	} else {
+		if (isset($_POST['login'])) {
+			$email = $_POST['email'];
+			$pass = $_POST['password'];
+			$user = new User();
+			$db = new Dbcon();
+			$sql = $user->login($email, $pass, $db->conn);
+		}
+	
+	}
+	include('header.php');
+?>
 		<!---login--->
 			<div class="content">
 				<div class="main-1">
@@ -13,17 +29,17 @@
 								<div class="col-md-6 login-right">
 									<h3>registered</h3>
 									<p>If you have an account with us, please log in.</p>
-									<form>
+									<form action="login.php" method="post">
 									  <div>
 										<span>Email Address<label>*</label></span>
-										<input type="text"> 
+										<input type="email" name="email"> 
 									  </div>
 									  <div>
 										<span>Password<label>*</label></span>
-										<input type="password"> 
+										<input type="password" name="password"> 
 									  </div>
 									  <a class="forgot" href="#">Forgot Your Password?</a>
-									  <input type="submit" value="Login">
+									  <input type="submit" value="Login" name="login">
 									</form>
 								</div>	
 								<div class="clearfix"> </div>

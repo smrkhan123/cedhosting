@@ -8,7 +8,7 @@
 				</div>
 				<div class="footer-section">
 					<div class="container">
-						<div class="footer-grids">
+						<!-- <div class="footer-grids">
 							<div class="col-md-3 footer-grid">
 								<h4>flickr widget</h4>
 								<div class="footer-top">
@@ -93,7 +93,7 @@
 								<p>E-mail : <a href="mailto:example@mail.com"> example@mail.com</a></p>
 							</div>
 							<div class="clearfix"></div>
-						</div>
+						</div> -->
 						<div class="copy-section">
 							<p>&copy; 2016 Planet Hosting. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
 						</div>

@@ -1,22 +1,24 @@
-<?php include('header.php'); ?>
+<?php 
+session_start();
+include('header.php'); ?>
 		<!---singleblog--->
 				<div class="content">
 					<div class="linux-section">
 						<div class="container">
 							<div class="linux-grids">
 								<div class="col-md-8 linux-grid">
-								<h2>Linux Hosting</h2>
+								<h2>CMS Hosting</h2>
 								<ul>
-									<li><span>Unlimited </span> Domains, Disk Space, Bandwidth and Email Addresses</li>
+									<li><span>Unlimited </span> domains, email and disk space</li>
 									<li><span>99.9% uptime </span> with dedicated 24/7 technical support</li>
-									<li><span>Powered by </span> CloudLinux, cPanel (demo), Apache, MySQL, PHP, Ruby & more</li>
-									<li><span>Launch  </span> your business with Rs. 2000* Google AdWords Credit *</li>
+									<li><span>1 click</span> WordPress Installation with cPanel (demo) platform</li>
+									<li><span>Launch  </span> your business with Rs. 1000* Google AdWords Credit *</li>
 									<li><span>30 day </span> Money Back Guarantee</li>
 								</ul>
 									<a href="#">view plans</a>
 								</div>
 								<div class="col-md-4 linux-grid1">
-									<img src="images/linux.png" class="img-responsive" alt=""/>
+									<img src="images/cms.png" class="img-responsive" alt=""/>
 								</div>
 								<div class="clearfix"></div>
 							</div>
@@ -108,7 +110,7 @@
 										</div>
 									</div>
 									<div role="tabpanel" class="tab-pane fade" id="profile" aria-labelledby="profile-tab">
-										<div class="linux-prices">
+									<div class="linux-prices">
 											<div class="col-md-3 linux-price">
 												<div class="linux-top us-top">
 												<h4>Standard</h4>
@@ -203,77 +205,48 @@
 					</div>
 				</div>
        <!-- clients -->
-					<div class="whatdo">
+					<!-- Wordpress Features -->
+					<div class="features">
 						<div class="container">
-							<h3>Linux Features</h3>
-							<div class="what-grids">
-								<div class="col-md-4 what-grid">
-									<div class="what-left">
-									<i class="glyphicon glyphicon-cog" aria-hidden="true"></i>
-									</div>
-									<div class="what-right">
+							<h3>Wordpress Features</h3>
+							<div class="features-grids">
+								<div class="col-md-4 features-grid">
+									<img src="images/f1.png">
 										<h4>Expert Web Design</h4>
 										<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
 									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="col-md-4 what-grid">
-									<div class="what-left">
-									<i class="glyphicon glyphicon-dashboard" aria-hidden="true"></i>
-									</div>
-									<div class="what-right">
+									<div class="col-md-4 features-grid">
+										<img src="images/f2.png">
 										<h4>Expert Web Design</h4>
 										<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
 									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="col-md-4 what-grid">
-									<div class="what-left">
-									<i class="glyphicon glyphicon-stats" aria-hidden="true"></i>
-									</div>
-									<div class="what-right">
+									<div class="col-md-4 features-grid">
+										<img src="images/f3.png">
 										<h4>Expert Web Design</h4>
 										<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
 									</div>
-									<div class="clearfix"></div>
-								</div>
 								<div class="clearfix"></div>
 							</div>
-							<div class="what-grids">
-								<div class="col-md-4 what-grid">
-									<div class="what-left">
-									<i class="glyphicon glyphicon-download-alt" aria-hidden="true"></i>
-									</div>
-									<div class="what-right">
+							<div class="features-grids">
+								<div class="col-md-4 features-grid">
+									<img src="images/f4.png">
 										<h4>Expert Web Design</h4>
 										<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
 									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="col-md-4 what-grid">
-									<div class="what-left">
-									<i class="glyphicon glyphicon-move" aria-hidden="true"></i>
-									</div>
-									<div class="what-right">
+									<div class="col-md-4 features-grid">
+										<img src="images/f5.png">
 										<h4>Expert Web Design</h4>
 										<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
 									</div>
-									<div class="clearfix"></div>
-								</div>
-								<div class="col-md-4 what-grid">
-									<div class="what-left">
-									<i class="glyphicon glyphicon-screenshot" aria-hidden="true"></i>
-									</div>
-									<div class="what-right">
+									<div class="col-md-4 features-grid">
+										<img src="images/f6.png">
 										<h4>Expert Web Design</h4>
 										<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore </p>
 									</div>
-									<div class="clearfix"></div>
-								</div>
 								<div class="clearfix"></div>
 							</div>
 						</div>
 					</div>
-
+					<!-- Wordpress Features -->
 				</div>
 <?php include('footer.php'); ?>
