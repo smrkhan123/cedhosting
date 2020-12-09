@@ -23,7 +23,9 @@ if(isset($_POST['submit'])) {
 	if($error == '') {
 		if($password != $confirmpassword) {
 			$error = "Password and Confrim Password did not matched!";
-		} else {
+		} elseif ($email == '' || $name == '' || $password == '' || $phone == '') {
+			$error = 'Please complete the form and then submit';
+		}  else {
 			$obj = new User();
 			$db = new Dbcon();
 			$sql = $obj->signup($name, $email, $phone, $password, $security_question, $security_answer, $db->conn);
@@ -50,19 +52,19 @@ include('header.php'); ?>
 					<h3>personal information</h3>
 					 <div>
 						<span>Full Name<label>*</label></span>
-						<input type="text" name="name" pattern='^([A-Za-z]+ )+[A-Za-z]+$|^[A-Za-z]+$'> 
+						<input type="text" name="name" pattern='^([A-Za-z]+ )+[A-Za-z]+$|^[A-Za-z]+$' required> 
 					 </div>
 					 <div>
 						<span>Mobile<label>*</label></span>
-						<input type="text" name="mobile" pattern="(([1-9]{1}[0-9]{9})|([0]{1}[0-9]{10}))" title="Mobile number must be 10 digits"> 
+						<input type="text" name="mobile" pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$" required> 
 					 </div>
 					 <div>
 						 <span>Email Address<label>*</label></span>
-						 <input type="email" name="email" pattern="^(?!.*\.{2})[a-zA-Z0-9.]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$"> 
+						 <input type="email" name="email" pattern="^(?!.*\.{2})[a-zA-Z0-9.]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$" required> 
 					 </div>
 						<div>
 							<span>Security Question<label>*</label></span>
-							<select name="securityquestion" id="">
+							<select name="securityquestion" id="" required>
 								<option value="">Select Security Question</option>
 								<option value="petname">What is your pet name?</option>
 								<option value="nickname">What is your pet name?</option>
@@ -71,7 +73,7 @@ include('header.php'); ?>
 							</div>
 							<div>
 							<span>Security Answer<label>*</label></span>
-							<input type="text" name="securityanswer">
+							<input type="text" name="securityanswer" pattern='^([A-Za-z0-9]+ )+[A-Za-z0-9]+$|^[A-Za-z0-9]+$' required>
 						</div>
 					</div>
 					 <div class="clearfix"> </div>
@@ -79,7 +81,7 @@ include('header.php'); ?>
 							<h3>login information</h3>
 							 <div>
 								<span>Password<label>*</label></span>
-								<input type="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$">
+								<input type="password" name="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$" title="password must contain atleast one Special Character, Capital letter, Small Letter, & Number" required>
 							 </div>
 							 <div>
 								<span>Confirm Password<label>*</label></span>

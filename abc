@@ -1,0 +1,41 @@
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require "vendor/autoload.php";
+            $robo = 'sameerpathan1997@gmail.com';
+            $developmentMode = true;
+            $mailer = new PHPMailer($developmentMode);
+
+            try {
+                $mailer->SMTPDebug = 2;
+                $mailer->isSMTP();
+
+                if ($developmentMode) {
+                $mailer->SMTPOptions = [
+                    'ssl'=> [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                    ]
+                ];
+                }
+
+
+                $mailer->Host = 'ssl://smtp.gmail.com';
+                $mailer->SMTPAuth = true;
+                $mailer->Username = 'sameerpathan1997@gmail.com';
+                $mailer->Password = 'sameer786';
+                $mailer->SMTPSecure = 'ssl';
+                $mailer->Port = 465;
+
+                $mailer->setFrom('sameerpathan1997@gmail.com', 'Name of sender');
+                $mailer->addAddress($email, 'Name of recipient');
+
+                $mailer->isHTML(true);
+                $mailer->Subject = 'Email Verification';
+                $mailer->Body = 'Hi, '.$name.' Please click the link to verify your email '."http://localhost/CedHosting/verification.php?email=".md5($email);
+                $mailer->send();
+                $mailer->ClearAllRecipients();
+
+            } catch (Exception $e) {
+                echo "EMAIL SENDING FAILED. INFO: " . $mailer->ErrorInfo;
+            }

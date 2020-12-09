@@ -1500,7 +1500,7 @@ a.button4:hover {
 	display: inline-block;
 	text-transform: capitalize;
 }
-.acount-btn:hover, .login-right input[type="submit"]:hover{
+.acount-btn:hover, .login-right input[type="submit"]:hover, .check input[type="submit"]:hover{
 	background:#7277d5;
 	text-decoration:none;
 	color:#fff;
@@ -1518,14 +1518,20 @@ a.button4:hover {
 	display: block;
 	text-transform: uppercase;
 }
-.login-right input[type="email"],.login-right input[type="password"] {
+.check h3 {
+    margin: 30px 0px 15px 0px; 
+}
+.check input[type="submit"] {
+    margin-top: 20px;
+}
+.login-right input[type="email"], .login-right input[type="password"], .check input[type="email"] {
 	border: 1px solid #555;
 	outline-color:#08538C;
 	width: 96%;
 	font-size:0.8125em;
 	padding: 0.5em;
 }
-.login-right input[type="submit"] {
+.login-right input[type="submit"], .check input[type="submit"] {
 	background: #e7663f;
 	color: #FFF;
 	font-size: 1em;
