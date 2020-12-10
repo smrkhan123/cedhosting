@@ -32,7 +32,7 @@ class User {
                 $_SESSION['is_admin'] = $data['is_admin'];
                 $_SESSION['name'] = $data['name'];
                 if($_SESSION['is_admin'] == '1') {
-                    header("location:index.php");
+                    header("location:admin/index.php");
                 } else {
                     header("location:index.php");
                 }
@@ -70,6 +70,18 @@ class User {
         $rows = mysqli_num_rows($run);
         if($rows>0) {
             return $run;
+        }
+    }
+
+    function verifymobile($mobile, $conn) {
+        $sql = "UPDATE `tbl_user` SET `phone_approved` = '1', `active` = '1' WHERE `mobile` = '$mobile'";
+        $run = mysqli_query($conn, $sql);
+        if($run == 1) {
+            unset($_SESSSION['otp']);
+            echo "<script>alert('Mobile verified successfully.'); window.location.href = 'login.php';</script>";
+        } else {
+            unset($_SESSSION['otp']);
+            echo "<script>alert('Some error occured!'); window.location.href = account.php;</script>";
         }
     }
 }

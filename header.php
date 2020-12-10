@@ -1,4 +1,7 @@
 <?php
+include_once('classes/Product.php');
+$product = new Product();
+$db = new Dbcon();
 $link = basename($_SERVER["REQUEST_URI"]);
 if($link == "linuxhosting.php" || $link == "cmshosting.php" || $link == "wordpresshosting.php" || $link == "windowshosting.php") {
 	$link = "Hosting";
@@ -100,10 +103,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li class="dropdown <?php if($link == 'Hosting' ) { echo 'active'; }?>">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hosting<i class="caret"></i></a>
                                     <ul class="dropdown-menu">
-										<li><a href="linuxhosting.php">Linux hosting</a></li>
-										<li><a href="wordpresshosting.php">WordPress Hosting</a></li>
-										<li><a href="windowshosting.php">Windows Hosting</a></li>
-										<li><a href="cmshosting.php">CMS Hosting</a></li>
+										<?php 
+											$data = $product->select_subcategory($db->conn);
+											if($data != '0') {
+												foreach($data as $item) {
+													?>
+														<li><a href="<?php echo $item['link']; ?>"><?php echo $item['prod_name']; ?></a></li>
+													<?php
+												}
+											}
+										?>
                                     </ul>
                                 </li>
                                 <li <?php if($link == "pricing.php") { echo 'class="active"'; }?>><a href="pricing.php">Pricing</a></li>
