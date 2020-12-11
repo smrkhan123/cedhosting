@@ -18,6 +18,8 @@ if(isset($_POST['submit'])) {
 	foreach ($checksql as $chk) {
 		if ($chk['email'] == $email) {
 			$error = "Email Already exists";
+		} elseif($chk['mobile'] == $phone) {
+			$error = "Phone number Already exists";
 		}
 	}
 	if($error == '') {

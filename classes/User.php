@@ -73,6 +73,15 @@ class User {
         }
     }
 
+    function select_phone($phone, $conn) {
+        $sql = "SELECT * FROM `tbl_user` WHERE `mobile` = '$phone'";
+        $run = mysqli_query($conn, $sql);
+        $rows = mysqli_num_rows($run);
+        if($rows>0) {
+            return $run;
+        }
+    }
+
     function verifymobile($mobile, $conn) {
         $sql = "UPDATE `tbl_user` SET `phone_approved` = '1', `active` = '1' WHERE `mobile` = '$mobile'";
         $run = mysqli_query($conn, $sql);
@@ -84,6 +93,7 @@ class User {
             echo "<script>alert('Some error occured!'); window.location.href = account.php;</script>";
         }
     }
+
 }
 
 ?>

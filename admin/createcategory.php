@@ -14,6 +14,10 @@ if(isset($_POST['submit'])) {
     $subcategory = $_POST['subcategory'];
     $insert = $product->insert_subcategory($subcategory, $db->conn);
 }
+if(isset($_GET['delete'])) {
+  $id = $_GET['id'];
+  $delete = $product->delete_subcategory($id, $db->conn);
+}
 ?>
   
 <?php include_once('header.php');?>
@@ -317,7 +321,6 @@ if(isset($_POST['submit'])) {
         </div>
         <div class="col-md-2 col-lg-2"></div>
       </div>
-
       <!-- SubCategory Table -->
       <div class="row">
         <div class="col">
@@ -362,9 +365,16 @@ if(isset($_POST['submit'])) {
                                         ?>
                                     </td>
                                     <td><?php echo $item['prod_name']; ?></td>
-                                    <td><?php if($item['prod_available']=='1'){ echo 'Available'; } else { echo 'Unavailable'; } ?></td>
+                                    <td>
+                                      <?php if($item['prod_available']=='1'){?> 
+                                      <span class="badge badge-success">Available</span> <?php ;}
+                                        else { 
+                                          ?> <span class="badge badge-danger">Unavailable</span> <?php ; } ?></td>
                                     <td><?php echo $item['prod_launch_date']; ?></td>
-                                    <td><a href="#" class="btn btn-info btn-sm">Edit</a><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
+                                    <td>
+                                      <a onclick='return confirm("Are you sure, you want to Edit?")'  href="editcategory.php?update=1&id=<?php echo $item['id']; ?>" class="btn btn-info btn-sm">Edit</a>
+                                      <a onclick='return confirm("Are you sure, you want to Delete?")'  href="createcategory.php?delete=1&id=<?php echo $item['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                    </td>
                                 </tr>
                             <?php
                         }
@@ -377,7 +387,17 @@ if(isset($_POST['submit'])) {
             </div>
         </div>
     </div>
-     
+     <script>
+      function changeStatus($id) {
+        $.ajax({
+        method : "POST",
+        url : "ajax.php",
+        data : {id : $id }
+      }).done(function(result){
+        console.log(result);
+      });
+      }
+     </script>
 <?php include_once('footer.php');?>
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>

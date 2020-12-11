@@ -1,4 +1,5 @@
 <?php
+
     $otp = rand(10000, 99999);
     $_SESSION['otp'] = $otp;
     $fields = array(
