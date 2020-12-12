@@ -2399,7 +2399,7 @@ pre code
 .table-light > th,
 .table-light > td
 {
-    background-color: #e8eaed;
+    background-color: white;
 }
 
 .table-light th,
@@ -2407,7 +2407,7 @@ pre code
 .table-light thead th,
 .table-light tbody + tbody
 {
-    border-color: #d4d9dd;
+    border-color: white;
 }
 
 .table-hover .table-light:hover
@@ -2417,7 +2417,7 @@ pre code
 .table-hover .table-light:hover > td,
 .table-hover .table-light:hover > th
 {
-    background-color: #dadde2;
+    background-color: white;
 }
 
 .table-dark,

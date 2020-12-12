@@ -1,12 +1,10 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id'])) {
-	header("location: ../login.php");
-  } elseif(isset($_SESSION['id'])) {
-	  if($_SESSION['is_admin'] == '1') {
-		header("location: admin/index.php");
-	  }
-  }
+if(isset($_SESSION['id'])) {
+	if($_SESSION['is_admin'] == '1') {
+	header("location: admin/index.php");
+	}
+}
 include('header.php'); ?>
 
 	<!---header--->
