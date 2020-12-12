@@ -462,7 +462,6 @@ if(isset($_POST['submit'])) {
 
 <?php include_once('footer.php');?>  
 <script>
-  document.getElementById("submit").setAttribute("disabled",true);
   $i = 0;
   function forminputs(id) {
     var msgId = document.getElementById(id).value;
@@ -483,15 +482,3 @@ if(isset($_POST['submit'])) {
     }
   }
 </script>
-<!-- For MailBox : pattern="((^[0-9]*$)|(^[A-Za-z]+$))"
-
-for Free Domain: pattern="((^[0-9]*$)|(^[A-Za-z]+$))"
-
-for Bandwidth : pattern='([0-9]+(\.[0-9]+)?)'
-
-for web space : pattern='([0-9]+(\.[0-9]+)?)'
-
-For SKU: pattern="^[a-zA-Z0-9#](?:[a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
-
-Annual Price : pattern='([0-9]+(\.[0-9]+)?)'
- -->
