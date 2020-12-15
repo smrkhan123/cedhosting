@@ -70,6 +70,8 @@ class User {
         $rows = mysqli_num_rows($run);
         if($rows>0) {
             return $run;
+        } else {
+            return '0';
         }
     }
 
@@ -87,10 +89,20 @@ class User {
         $run = mysqli_query($conn, $sql);
         if($run == 1) {
             unset($_SESSSION['otp']);
-            echo "<script>alert('Mobile verified successfully.'); window.location.href = 'login.php';</script>";
+            echo "<script>alert('Mobile Verified Successfully');window.location.href = 'login.php';</script>";
         } else {
             unset($_SESSSION['otp']);
-            echo "<script>alert('Some error occured!'); window.location.href = account.php;</script>";
+            echo "<script>alert('Some error occured');window.location.href = 'account.php';</script>";
+        }
+    }
+
+    function changepassword($email,$password,$secQuestions,$secAnswer,$conn) {
+        $sql = "UPDATE `tbl_user` SET `password` = '$password' WHERE `email` = '$email'";
+        $run = mysqli_query($conn, $sql);
+        if($run == 1) {
+            echo "<script>alert('Password Changed successfully.'); window.location.href = 'login.php';</script>";
+        } else {
+            echo "<script>alert('Some error occured!'); window.location.href = 'changepassword.php?email='.$email.'&secQuestions='.$secQuestions.'&secAnswer='.$secAnswer.'&submit=Submit';</script>";
         }
     }
 

@@ -5,7 +5,7 @@ $db = new Dbcon();
 $link = basename($_SERVER["REQUEST_URI"]);
 if($link == "linuxhosting.php" || $link == "cmshosting.php" || $link == "wordpresshosting.php" || $link == "windowshosting.php") {
 	$link = "Hosting";
-}
+} 
 ?>
 <!--
 Author: W3layouts
@@ -100,7 +100,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<a href="about.php">About</a>
 								</li>
                                 <li <?php if($link == "services.php") { echo 'class="active"'; }?>><a href="services.php">Services</a></li>
-                                <li class="dropdown <?php if($link == 'Hosting' ) { echo 'active'; }?>">
+                                <li class='dropdown <?php if(isset($_GET["id"])){ if($link == "catpage.php?id=".$_GET["id"]) { echo 'active'; } }?>'>
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hosting<i class="caret"></i></a>
                                     <ul class="dropdown-menu">
 										<?php 
@@ -108,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											if($data != '0') {
 												foreach($data as $item) {
 													?>
-														<li><a href="<?php echo $item['link']; ?>"><?php echo $item['prod_name']; ?></a></li>
+														<li><a href="catpage.php?id=<?php echo $item['id']; ?>"><?php echo $item['prod_name']; ?></a></li>
 													<?php
 												}
 											}
@@ -118,7 +118,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <li <?php if($link == "pricing.php") { echo 'class="active"'; }?>><a href="pricing.php">Pricing</a></li>
                                 <li <?php if($link == "blog.php") { echo 'class="active"'; }?>><a href="blog.php">Blog</a></li>
                                 <li <?php if($link == "contact.php") { echo 'class="active"'; }?>><a href="contact.php">Contact</a></li>
-                                <li <?php if($link == "cart.php") { echo 'class="active"'; }?>><a href="blog.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
+                                <li <?php if($link == "cart.php") { echo 'class="active"'; }?>><a href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></li>
 								<?php if(isset($_SESSION['id'])){ ?>
 										<li <?php if($link == "logout.php") { echo 'class="active"'; }?>><a href="logout.php">Logout</a></li>
 								<?php ; } else  {?>

@@ -69,7 +69,7 @@
 										<span>Password<label>*</label></span>
 										<input type="password" name="password"> 
 									  </div>
-									  <a class="forgot" href="#">Forgot Your Password?</a>
+									  <a class="forgot" href="forgetpassword.php">Forgot Your Password?</a>
 									  <input type="submit" value="Login" name="login">
 									</form>
 								</div>	

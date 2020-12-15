@@ -344,7 +344,7 @@ if(isset($_GET['delete'])) {
                                         <td><?php echo $data->language; ?></td>
                                         <td><?php echo $data->mailbox; ?></td>
                                         <td>
-                                        <a onclick='return confirm("Are you sure, you want to Edit?")'  href="editcategory.php?update=1&id=<?php echo $item['id']; ?>" class="btn btn-info btn-sm">Edit</a>
+                                        <a onclick='return confirm("Are you sure, you want to Edit?")'  href="editproduct.php?update=1&id=<?php echo $pro['id']; ?>" class="btn btn-info btn-sm">Edit</a>
                                         <a onclick='return confirm("Are you sure, you want to Delete?")'  href="viewproducts.php?delete=1&id=<?php echo $pro['prod_id']; ?>" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>

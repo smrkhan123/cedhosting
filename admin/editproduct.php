@@ -11,9 +11,11 @@ if (!isset($_SESSION['id'])) {
 $product = new Product();
 $db = new Dbcon();
 if(isset($_POST['submit'])) {
+    $id = $_POST['id'];
     $category = $_POST['category'];
     $productname = $_POST['productname'];
     $pageurl = $_POST['pageurl'];
+    $availablity = $_POST['availability'];
     $monthlyprice = $_POST['monthlyprice'];
     $annualprice = $_POST['annualprice'];
     $sku = $_POST['sku'];
@@ -24,7 +26,15 @@ if(isset($_POST['submit'])) {
     $mailbox = $_POST['mailbox'];
     $arr = array("webspaces"=>$webspaces, "bandwidth"=>$bandwidth, "domain"=>$domain, "language"=>$language, "mailbox"=>$mailbox);
     $featuresEncoded = json_encode($arr);
-    $insert = $product->insert_product($category, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $featuresEncoded, $db->conn);
+    $insert = $product->update_product($id, $category, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $featuresEncoded, $availablity, $db->conn);
+}
+
+if(isset($_GET['update'])) {
+  $id = $_GET['id'];
+  $sql = $product->selectproductwithid($id, $db->conn);
+  // foreach($sql as $item) {
+  //   echo $item['description']."<br>";
+  // } die();
 }
 ?>
   
@@ -300,7 +310,15 @@ if(isset($_POST['submit'])) {
               <h1 class="mb-0">Create New Product</h1>
             </div>
             <div class="card-body">
-                <form action="addproduct.php" method="post" id="basic-form">
+                <form action="editproduct.php" method="post" id="basic-form">
+                <?php  
+                  if(isset($_GET['update'])) {
+                  $id = $_GET['id'];
+                  $sql = $product->selectproductwithid($id, $db->conn);
+                  foreach($sql as $data) {
+                    $decodedData = json_decode($data['description']);
+                ?>
+                    <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select Category <span style="color:red">*</span></label>
                         <select class="form-control" name="category" id="category" onblur ="forminputs(this.id)" required>
@@ -310,7 +328,7 @@ if(isset($_POST['submit'])) {
                                 if($sql != 0) {
                                     foreach($sql as $item) {
                                         ?>
-                                            <option value="<?php echo $item['id'];?>"><?php echo $item['prod_name'];?></option>
+                                            <option value="<?php echo $item['id'];?>" <?php if($data['prod_parent_id'] == $item['id']) { echo "selected"; } ?>><?php echo $item['prod_name'];?></option>
                                         <?php
                                     }
                                 }
@@ -320,12 +338,12 @@ if(isset($_POST['submit'])) {
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Enter Product Name <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="productname" onblur ="forminputs(this.id)" name="productname" pattern='^([A-Za-z]+ )+[A-Za-z-0-9]+$|^[A-Za-z0-9]+$' required placeholder="Add Product Name">
+                        <input type="text" class="form-control" id="productname" onblur ="forminputs(this.id)" name="productname" pattern='^([A-Za-z]+ )+[A-Za-z-0-9]+$|^[A-Za-z0-9]+$' required placeholder="Add Product Name" value="<?php echo $data['prod_name']; ?>">
                         <small id="productnameError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Page Url <span style="color:red">*</span></label>
-                        <input type="url" class="form-control" id="pageurl" onblur ="forminputs(this.id)" name="pageurl" placeholder="Add Page Url" required>
+                        <input type="url" class="form-control" id="pageurl" onblur ="forminputs(this.id)" name="pageurl" placeholder="Add Page Url" required value="<?php echo $data['html']; ?>">
                         <small id="pageurlError"></small>
                     </div>
 
@@ -338,19 +356,19 @@ if(isset($_POST['submit'])) {
                     <br>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Enter Monthly Price <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="monthlyprice" onblur ="forminputs(this.id)" name="monthlyprice" required placeholder="ex. 23">
+                        <input type="text" class="form-control" id="monthlyprice" onblur ="forminputs(this.id)" name="monthlyprice" required placeholder="ex. 23" value="<?php echo $data['mon_price']; ?>">
                         <small>This would be monthly plan</small><br>
                         <small id="monthlypriceError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Enter Annual Price <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="annualprice" onblur ="forminputs(this.id)" name="annualprice" required placeholder="ex. 23">
+                        <input type="text" class="form-control" id="annualprice" onblur ="forminputs(this.id)" name="annualprice" required placeholder="ex. 23" value="<?php echo $data['annual_price']; ?>">
                         <small>This would be Annual plan</small><br>
                         <small id="annualpriceError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">SKU <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="sku" onblur ="forminputs(this.id)" name="sku" required placeholder="">
+                        <input type="text" class="form-control" id="sku" onblur ="forminputs(this.id)" name="sku" required placeholder="" value="<?php echo $data['sku']; ?>">
                         <small id="skuError"></small>
                     </div>
 
@@ -362,37 +380,48 @@ if(isset($_POST['submit'])) {
                     <br>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Web Spaces(in GB) <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="webspaces" onblur ="forminputs(this.id)" name="webspaces" required>
+                        <input type="text" class="form-control" id="webspaces" onblur ="forminputs(this.id)" name="webspaces" required value="<?php echo $decodedData->webspaces; ?>">
                         <small>Enter 0.5 for 512 MB</small><br>
                         <small id="webspacesError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Bandwidth (in GB) <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="bandwidth" onblur ="forminputs(this.id)" name="bandwidth" required>
+                        <input type="text" class="form-control" id="bandwidth" onblur ="forminputs(this.id)" name="bandwidth" required value="<?php echo $decodedData->bandwidth; ?>">
                         <small>Enter 0.5 for 512 MB</small><br>
                         <small id="bandwidthError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Free Domain <span style="color:red">*</span></label>
-                        <input type="text" id="domain" class="form-control" onblur ="forminputs(this.id)" name="domain" required>
+                        <input type="text" id="domain" class="form-control" onblur ="forminputs(this.id)" name="domain" required value="<?php echo $decodedData->domain; ?>">
                         <small>Enter 0 if no domain available in this service</small><br>
                         <small id="domainError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Language/Technology Supporty <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="language" onblur ="forminputs(this.id)" name="language" required>
+                        <input type="text" class="form-control" id="language" onblur ="forminputs(this.id)" name="language" required value="<?php echo $decodedData->language; ?>">
                         <small>Separate by (,) Ex: PHP, MySQL, MongoDB</small><br>
                         <small id="languageError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Mailbox <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="mailbox" onblur ="forminputs(this.id)" name="mailbox" required>
+                        <input type="text" class="form-control" id="mailbox" onblur ="forminputs(this.id)" name="mailbox" required value="<?php echo $decodedData->mailbox; ?>">
                         <small>Enter Number of mailbox will be provided, enter 0 if none</small><br>
                         <small id="mailboxError"></small>
                     </div>
                     <div class="form-group">
-                        <input type="submit" id="submit" class="btn btn-primary" value="Add Product" name="submit">
+                        <label for="exampleFormControlSelect1">Select Category <span style="color:red">*</span></label>
+                        <select class="form-control" name="availability" id="availability" onblur ="forminputs(this.id)" required>
+                            <option value="">Select Product Category</option>
+                            <option value="0" <?php if($data['prod_available'] == '1') { echo "selected"; } ?>>Available</option>
+                            <option value="1" <?php if($data['prod_available'] == '0') { echo "selected"; } ?>>Unavailable</option>
+                        </select>
+                        <small id="categoryError"></small>
                     </div>
+                    <div class="form-group">
+                        <input type="submit" id="submit" class="btn btn-primary" value="Update Product" name="submit">
+                    </div>
+                    <?php } 
+                  }?>
                 </form>
             </div>
           </div>
@@ -400,85 +429,5 @@ if(isset($_POST['submit'])) {
         <div class="col-md-2 col-lg-2"></div>
       </div>
 
-      <!-- SubCategory Table -->
-      <!-- <div class="row">
-        <div class="col">
-            <div class="card bg-default shadow">
-                <div class="text-center card-header bg-primary border-0">
-                    <h3 class="text-white mb-0">All SubCategory</h3>
-                </div>
-                <div class="table-responsive table-light">
-              <table id="subcat" class="table align-items-center table-flush">
-                <thead class="text-dark">
-                  <tr>
-                    <th scope="col" class="sort" data-sort="name">Category</th>
-                    <th scope="col" class="sort" data-sort="budget">SubCategory</th>
-                    <th scope="col" class="sort" data-sort="status">Status</th>
-                    <th scope="col" class="sort" data-sort="completion">Launch Date</th>
-                    <th scope="col" class="sort" data-sort="completion">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="list">
-                  <?php
-                    $data = $product->select_subcategory($db->conn);
-                    if($data == '0') {
-                        ?>
-                            <tr>
-                                <td class="text-center">No data Available</td>
-                            </tr>
-                        <?php
-                    } else {
-                        foreach($data as $item) {
-                            $parentname = $product->select_parentname($item['prod_parent_id'], $db->conn);
-                            ?>
-                                <tr>
-                                    <td>
-                                        <?php
-                                            if($parentname == '0') {
-                                                echo "Null";
-                                            } else {
-                                                foreach($parentname as $pname) {
-                                                    echo $pname['prod_name'];
-                                                } 
-                                            }
-                                        ?>
-                                    </td>
-                                    <td><?php echo $item['prod_name']; ?></td>
-                                    <td><?php if($item['prod_available']=='1'){ echo 'Available'; } else { echo 'Unavailable'; } ?></td>
-                                    <td><?php echo $item['prod_launch_date']; ?></td>
-                                    <td><a href="#" class="btn btn-info btn-sm">Edit</a><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
-                                </tr>
-                            <?php
-                        }
-                    }
-
-                  ?>
-                </tbody>
-              </table>
-            </div>
-            </div>
-        </div>
-    </div> -->
-
 <?php include_once('footer.php');?>  
-<script>
-  $i = 0;
-  function forminputs(id) {
-    var msgId = document.getElementById(id).value;
-    if(msgId == "") {
-      var err = id+"Error";
-      $i = $i+1;
-      document.getElementById(err).innerHTML = "<div class='form-error-message'><i class='fa fa-exclamation-circle'></i> This field is required.<div class='form-error-arrow'><div class='form-error-arrow-inner'></div></div></div>";
-      document.getElementById("submit").setAttribute("disabled",true);
-      document.getElementById(id).style.border = "2px solid red";
-    } else {
-      var err = id+"Error";
-      document.getElementById(err).innerHTML = "";
-      document.getElementById(id).style.border = "";
-      $i = $i-1;
-      if($i==0) {
-        document.getElementById("submit").removeAttribute("disabled",false);
-      }
-    }
-  }
-</script>
+<script src="validate.js"></script>

@@ -52,7 +52,7 @@ if(isset($_POST['otpsubmit'])) {
     
     $otp = $_POST['otp'];
     $mobile = $_POST['mobile'];
-    if(isset($_SESSION['top'])) {
+    if(isset($_SESSION['otp'])) {
         if($_SESSION['otp'] == $otp) {
             $mobileverified = $user->verifymobile($mobile, $db->conn);
         }

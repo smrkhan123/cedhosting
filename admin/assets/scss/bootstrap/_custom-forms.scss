@@ -37,7 +37,7 @@
   &:focus ~ .custom-control-label::before {
     // the mixin is not used here to make sure there is feedback
     @if $enable-shadows {
-      box-shadow: $input-box-shadow, $input-focus-box-shadow;
+      box-shadow: wordpresshosting.phpnput-box-shadow, wordpresshosting.phpnput-focus-box-shadow;
     } @else {
       box-shadow: $custom-control-indicator-focus-box-shadow;
     }
@@ -248,8 +248,8 @@
       // the selected option text when the (still closed) <select> receives focus
       // in IE and (under certain conditions) Edge.
       // See https://github.com/twbs/bootstrap/issues/19398.
-      color: $input-color;
-      background-color: $input-bg;
+      color: wordpresshosting.phpnput-color;
+      background-color: wordpresshosting.phpnput-bg;
     }
   }
 

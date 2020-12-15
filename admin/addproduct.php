@@ -27,7 +27,6 @@ if(isset($_POST['submit'])) {
     $insert = $product->insert_product($category, $productname, $pageurl, $monthlyprice, $annualprice, $sku, $featuresEncoded, $db->conn);
 }
 ?>
-  
 <?php include_once('header.php');?>
   <!-- Main content -->
   <div class="main-content" id="panel">
@@ -303,7 +302,7 @@ if(isset($_POST['submit'])) {
                 <form action="addproduct.php" method="post" id="basic-form">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Select Category <span style="color:red">*</span></label>
-                        <select class="form-control" name="category" id="category" onblur ="forminputs(this.id)" required>
+                        <select class="form-control form-field" name="category" id="category" onblur ="forminputs(this.id)" required>
                             <option value="">Select Product Category</option>
                             <?php 
                                 $sql = $product->select_subcategory($db->conn);
@@ -320,12 +319,12 @@ if(isset($_POST['submit'])) {
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Enter Product Name <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="productname" onblur ="forminputs(this.id)" name="productname" pattern='^([A-Za-z]+ )+[A-Za-z-0-9]+$|^[A-Za-z0-9]+$' required placeholder="Add Product Name">
+                        <input type="text" class="form-control form-field" id="productname" onblur ="forminputs(this.id)" name="productname" pattern='^([A-Za-z]+ )+[A-Za-z-0-9]+$|^[A-Za-z0-9]+$' required placeholder="Add Product Name">
                         <small id="productnameError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Page Url <span style="color:red">*</span></label>
-                        <input type="url" class="form-control" id="pageurl" onblur ="forminputs(this.id)" name="pageurl" placeholder="Add Page Url" required>
+                        <input type="url" class="form-control form-field" id="pageurl" onblur ="forminputs(this.id)" name="pageurl" placeholder="Add Page Url" required>
                         <small id="pageurlError"></small>
                     </div>
 
@@ -338,19 +337,19 @@ if(isset($_POST['submit'])) {
                     <br>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Enter Monthly Price <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="monthlyprice" onblur ="forminputs(this.id)" name="monthlyprice" required placeholder="ex. 23">
+                        <input type="text" class="form-control form-field" id="monthlyprice" onblur ="forminputs(this.id)" name="monthlyprice" required placeholder="ex. 23">
                         <small>This would be monthly plan</small><br>
                         <small id="monthlypriceError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Enter Annual Price <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="annualprice" onblur ="forminputs(this.id)" name="annualprice" required placeholder="ex. 23">
+                        <input type="text" class="form-control form-field" id="annualprice" onblur ="forminputs(this.id)" name="annualprice" required placeholder="ex. 23">
                         <small>This would be Annual plan</small><br>
                         <small id="annualpriceError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">SKU <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="sku" onblur ="forminputs(this.id)" name="sku" required placeholder="">
+                        <input type="text" class="form-control form-field" id="sku" onblur ="forminputs(this.id)" name="sku" required placeholder="">
                         <small id="skuError"></small>
                     </div>
 
@@ -362,31 +361,31 @@ if(isset($_POST['submit'])) {
                     <br>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Web Spaces(in GB) <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="webspaces" onblur ="forminputs(this.id)" name="webspaces" required>
+                        <input type="text" class="form-control form-field" id="webspaces" onblur ="forminputs(this.id)" name="webspaces" required>
                         <small>Enter 0.5 for 512 MB</small><br>
                         <small id="webspacesError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Bandwidth (in GB) <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="bandwidth" onblur ="forminputs(this.id)" name="bandwidth" required>
+                        <input type="text" class="form-control form-field" id="bandwidth" onblur ="forminputs(this.id)" name="bandwidth" required>
                         <small>Enter 0.5 for 512 MB</small><br>
                         <small id="bandwidthError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Free Domain <span style="color:red">*</span></label>
-                        <input type="text" id="domain" class="form-control" onblur ="forminputs(this.id)" name="domain" required>
+                        <input type="text" id="domain" class="form-control form-field" onblur ="forminputs(this.id)" name="domain" required>
                         <small>Enter 0 if no domain available in this service</small><br>
                         <small id="domainError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Language/Technology Supporty <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="language" onblur ="forminputs(this.id)" name="language" required>
+                        <input type="text" class="form-control form-field" id="language" onblur ="forminputs(this.id)" name="language" required>
                         <small>Separate by (,) Ex: PHP, MySQL, MongoDB</small><br>
                         <small id="languageError"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Mailbox <span style="color:red">*</span></label>
-                        <input type="text" class="form-control" id="mailbox" onblur ="forminputs(this.id)" name="mailbox" required>
+                        <input type="text" class="form-control form-field" id="mailbox" onblur ="forminputs(this.id)" name="mailbox" required>
                         <small>Enter Number of mailbox will be provided, enter 0 if none</small><br>
                         <small id="mailboxError"></small>
                     </div>
@@ -460,38 +459,11 @@ if(isset($_POST['submit'])) {
         </div>
     </div> -->
 
+
+
+
+
+
 <?php include_once('footer.php');?>  
-<script>
-  document.getElementById("submit").setAttribute("disabled",true);
-  $i = 0;
-  function forminputs(id) {
-    var msgId = document.getElementById(id).value;
-    if(msgId == "") {
-      var err = id+"Error";
-      $i = $i+1;
-      document.getElementById(err).innerHTML = "<div class='form-error-message'><i class='fa fa-exclamation-circle'></i> This field is required.<div class='form-error-arrow'><div class='form-error-arrow-inner'></div></div></div>";
-      document.getElementById("submit").setAttribute("disabled",true);
-      document.getElementById(id).style.border = "2px solid red";
-    } else {
-      var err = id+"Error";
-      document.getElementById(err).innerHTML = "";
-      document.getElementById(id).style.border = "";
-      $i = $i-1;
-      if($i==0) {
-        document.getElementById("submit").removeAttribute("disabled",false);
-      }
-    }
-  }
-</script>
-<!-- For MailBox : pattern="((^[0-9]*$)|(^[A-Za-z]+$))"
 
-for Free Domain: pattern="((^[0-9]*$)|(^[A-Za-z]+$))"
-
-for Bandwidth : pattern='([0-9]+(\.[0-9]+)?)'
-
-for web space : pattern='([0-9]+(\.[0-9]+)?)'
-
-For SKU: pattern="^[a-zA-Z0-9#](?:[a-zA-Z0-9_-]*[a-zA-Z0-9])?$"
-
-Annual Price : pattern='([0-9]+(\.[0-9]+)?)'
- -->
+<script src="validate.js"></script>

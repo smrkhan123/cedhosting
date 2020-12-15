@@ -310,10 +310,10 @@ if(isset($_GET['delete'])) {
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlInput1">Add SubCategory</label>
-                        <input type="text" class="form-control" name="subcategory" pattern='^([A-Za-z]+ )+[A-Za-z]+$|^[A-Za-z]+$' id="subcategory" required placeholder="Add SubCategory">
+                        <input type="text" class="form-control" name="subcategory" pattern="^[a-zA-z][0-9a-zA-Z\.\ ]+[a-zA-z0-9]+$|^[a-zA-z][0-9a-zA-Z\ ]+$" id="subcategory" required placeholder="Add SubCategory">
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-primary" value="Add Category" name="submit">
+                        <input type="submit" class="btn btn-primary" id='submit' value="Add Category" name="submit">
                     </div>
                 </form>
             </div>
@@ -406,4 +406,20 @@ if(isset($_GET['delete'])) {
     $('#subcat').dataTable()
   })
   </script>   
+  <script>
+      $(document).ready(function(){
+        $("#subcategory").keyup(function(){
+          subcategory=$("#subcategory").val()
+          var regex = new RegExp('^[a-zA-z][0-9a-zA-Z\.\ ]+[a-zA-z0-9]+$|^[a-zA-z][0-9a-zA-Z\ ]+$/');
+            if(regex.test(subcategory)) {
+              $("#subcategory").css("border","2px solid green")
+              $("#submit").removeAttr("disabled")
+            }else{
+              $("#subcategory").css("border","2px solid red")
+              $("#submit").prop("disabled","true")
+            }
+          
+        })
+      })
+    </script>
 

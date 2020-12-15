@@ -23,7 +23,7 @@ if(isset($_POST['update'])) {
     $name = $_POST['subcategory'];
     $isavail = $_POST['available'];
     $id = $_POST['id'];
-    $update = $product->update_product($id, $name, $isavail, $db->conn);
+    $update = $product->update_category($id, $name, $isavail, $db->conn);
     if($update == true) {
         echo "<script>alert('Data updated successfully'); window.location.href = 'createcategory.php'; </script>";
     }
@@ -338,7 +338,7 @@ if(isset($_POST['update'])) {
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" value="Update Category" name="update">
+                                    <input type="submit" id="submit" class="btn btn-primary" value="Update Category" name="update">
                                 </div>
                                 <?php
                             }
@@ -352,4 +352,20 @@ if(isset($_POST['update'])) {
         <div class="col-md-2 col-lg-2"></div>
       </div>
 <?php include_once('footer.php');?>   
-
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $("#subcategory").keyup(function(){
+      subcategory=$("#subcategory").val()
+      var regex = new RegExp('^[a-zA-z][0-9a-zA-Z\.\ ]+[a-zA-z0-9]+$|^[a-zA-z][0-9a-zA-Z\ ]+$/');
+        if(regex.test(subcategory)) {
+          $("#subcategory").css("border","2px solid green")
+          $("#submit").removeAttr("disabled")
+        }else{
+          $("#subcategory").css("border","2px solid red")
+          $("#submit").prop("disabled","true")
+        }
+      
+    })
+  })
+</script>
