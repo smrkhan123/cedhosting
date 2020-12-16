@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include_once("classes/Product.php");
 $product = new Product();
 $db = new Dbcon();
@@ -13,34 +14,39 @@ include('header.php');?>
         <div class="container">
             <h2>Cart</h2>
             <div class="about-grids text-center">
+                <?php
+                    if(!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0){
+                        ?>
+                            <h3>Looks like the cart is empty!</h3>
+                            <p>Not a problem, let's find a plan that will fit your project best. <a href="pricing.php">Click Here</a> </p>
+                        <?php
+                    } else {
+                ?>
                 <table>
                     <thead>
                         <tr>
-                        <th>PRODUCT SKU</th>
-                        <th>PRODUCT NAME</th>
-                        <th>MONTHLY SUBSCRIPTION</th>
-                        <th>ANNUAL SUBSCRIPTION</th>
-                        <th>TOTAL DISK SPACE</th>
-                        <th>TOTAL DATA TRANSFER</th>
-                        <th>TOTAL DOMAIN</th>
-                        <th>TOTAL TECHNOLOGY</th>
-                        <th>MAIL BOX</th>
-                        <th>REMOVE</th>
+                            <th>PRODUCT SKU</th>
+                            <th>PRODUCT NAME</th>
+                            <th>MONTHLY SUBSCRIPTION</th>
+                            <th>ANNUAL SUBSCRIPTION</th>
+                            <th>TOTAL DISK SPACE</th>
+                            <th>TOTAL DATA TRANSFER</th>
+                            <th>TOTAL DOMAIN</th>
+                            <th>TOTAL TECHNOLOGY</th>
+                            <th>MAIL BOX</th>
+                            <th>REMOVE</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        print_r($_SESSION['cart']);
-                            $cart = $product->select_product($db->conn);
-                            foreach($cart as $data) {
-                                foreach($_SESSION['cart'] as $key => $value) {
-                                    // echo $data['id'];
-                                    // die();
-                                    if($value['id'] == $data['prod_id']) {
-                                        // echo $data['id'];
-                                        // die();
-                                        $decodeData = json_decode($data);
-                                        ?>
+                        <?php 
+                        // print_r($_SESSION['cart']);
+                        // die();
+                            foreach($_SESSION['cart'] as $key => $value) {
+                                $cart = $product->cartproductwithid($value['id'], $db->conn);
+                                foreach($cart as $data){
+                                    $decodeData = json_decode($data['description']);
+                                    ?>
+                                        <tr>
                                             <td><?php echo $data['sku']; ?></td>
                                             <td><?php echo $data['prod_name']; ?></td>
                                             <td><?php echo $data['mon_price']; ?></td>
@@ -51,15 +57,14 @@ include('header.php');?>
                                             <td><?php echo $decodeData->language; ?></td>
                                             <td><?php echo $decodeData->mailbox; ?></td>
                                             <td>REMOVE</td>
-                                        <?php
-                                    }
+                                        </tr>
+                                    <?php
                                 }
                             }
                         ?>
                     </tbody>
                 </table>
-                <!-- <h3>Looks like the cart is empty!</h3>
-                <p>Not a problem, let's find a plan that will fit your project best. <a href="pricing.php">Click Here</a> </p> -->
+                        <?php }?>
             </div>
             <div class="clearfix"></div>
         </div>

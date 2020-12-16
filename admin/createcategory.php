@@ -313,6 +313,10 @@ if(isset($_GET['delete'])) {
                         <input type="text" class="form-control" name="subcategory" pattern="^[a-zA-z][0-9a-zA-Z\.\ ]+[a-zA-z0-9]+$|^[a-zA-z][0-9a-zA-Z\ ]+$" id="subcategory" required placeholder="Add SubCategory">
                     </div>
                     <div class="form-group">
+                        <label for="exampleFormControlInput1">HTML</label>
+                        <textarea id="editor" name="html"></textarea>
+                    </div>
+                    <div class="form-group">
                         <input type="submit" class="btn btn-primary" id='submit' value="Add Category" name="submit">
                     </div>
                 </form>
@@ -401,6 +405,35 @@ if(isset($_GET['delete'])) {
 <?php include_once('footer.php');?>
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+  tinymce.init({
+  selector: "textarea#editor",
+  skin: "bootstrap",
+  plugins: "lists, link, image, media",
+  toolbar:
+    "h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help",
+  menubar: false,
+  setup: (editor) => {
+    // Apply the focus effect
+    editor.on("init", () => {
+      editor.getContainer().style.transition =
+        "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
+    });
+    editor.on("focus", () => {
+      (editor.getContainer().style.boxShadow =
+        "0 0 0 .2rem rgba(0, 123, 255, .25)"),
+        (editor.getContainer().style.borderColor = "#80bdff");
+    });
+    editor.on("blur", () => {
+      (editor.getContainer().style.boxShadow = ""),
+        (editor.getContainer().style.borderColor = "");
+    });
+  },
+});
+</script>
+
 <script>
   $(function(){
     $('#subcat').dataTable()

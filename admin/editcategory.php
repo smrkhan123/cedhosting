@@ -22,8 +22,9 @@ if(isset($_GET['update'])) {
 if(isset($_POST['update'])) {
     $name = $_POST['subcategory'];
     $isavail = $_POST['available'];
+    $html = $_POST['html'];
     $id = $_POST['id'];
-    $update = $product->update_category($id, $name, $isavail, $db->conn);
+    $update = $product->update_category($id, $name, $isavail, $html, $db->conn);
     if($update == true) {
         echo "<script>alert('Data updated successfully'); window.location.href = 'createcategory.php'; </script>";
     }
@@ -331,6 +332,10 @@ if(isset($_POST['update'])) {
                                     <input type="text" value="<?php echo $data['prod_name']; ?>" class="form-control" name="subcategory" pattern='^([A-Za-z]+ )+[A-Za-z]+$|^[A-Za-z]+$' id="subcategory" required placeholder="Add SubCategory">
                                 </div>
                                 <div class="form-group">
+                                  <label for="exampleFormControlInput1">HTML</label>
+                                  <textarea id="editor" name="html"><?php echo $data['html']; ?></textarea>
+                                </div>
+                                <div class="form-group">
                                     <label for="exampleFormControlSelect1">Select Category</label>
                                     <select class="form-control" name="available" id="available">
                                         <option value="1" <?php if($data['prod_available'] == '1') { echo "selected"; }?>>Available</option>
@@ -353,6 +358,35 @@ if(isset($_POST['update'])) {
       </div>
 <?php include_once('footer.php');?>   
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script>
+  tinymce.init({
+  selector: "textarea#editor",
+  skin: "bootstrap",
+  plugins: "lists, link, image, media",
+  toolbar:
+    "h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help",
+  menubar: false,
+  setup: (editor) => {
+    // Apply the focus effect
+    editor.on("init", () => {
+      editor.getContainer().style.transition =
+        "border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out";
+    });
+    editor.on("focus", () => {
+      (editor.getContainer().style.boxShadow =
+        "0 0 0 .2rem rgba(0, 123, 255, .25)"),
+        (editor.getContainer().style.borderColor = "#80bdff");
+    });
+    editor.on("blur", () => {
+      (editor.getContainer().style.boxShadow = ""),
+        (editor.getContainer().style.borderColor = "");
+    });
+  },
+});
+</script>
 <script>
   $(document).ready(function(){
     $("#subcategory").keyup(function(){

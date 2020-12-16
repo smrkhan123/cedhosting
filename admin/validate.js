@@ -9,7 +9,7 @@ function forminputs(id) {
         document.getElementById(id).style.border = "2px solid red";
     } else { 
         if(id == "productname") {
-            var regex = new RegExp(/^[a-zA-Z]*[-\s]?[a-zA-Z]+[-\s]?[0-9]*(([a-zA-Z0-9]*[-\s]?[a-zA-Z]+[-\s]?[0-9]*)+)*$/);
+            var regex = new RegExp(/^[a-zA-Z]+[-\s]?[a-zA-Z]+[-\s]?[0-9]*(([a-zA-Z0-9]*[-\s]?[a-zA-Z]+[-\s]?[0-9]*)+)*$/);
             if(!regex.test(msgId)) {
                 var err = id+"Error";
                 i = i+1;
@@ -132,9 +132,6 @@ Only numeric/ only alphabetic(i.e. no combinations), No white spaces, No '\.\' a
 
 Language / Technology Support:-
 Only '\,\' allowed as special char, Only alphabetic/ alpha-numeric
-
-
-
 
 ##Add Sub-Category:
 

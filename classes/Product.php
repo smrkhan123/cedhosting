@@ -16,7 +16,7 @@ class Product {
         }
     }
 
-    function insert_subcategory($subcategory, $conn) {
+    function insert_subcategory($subcategory, $html, $conn) {
         $select = mysqli_query($conn, "SELECT * FROM `tbl_product` WHERE `prod_parent_id` = '1'");
         if(mysqli_num_rows($select)) {
             $flag = 0;
@@ -26,9 +26,9 @@ class Product {
                 }
             }
             if($flag == 0) {
-                $link = str_replace(" ","",strtolower($subcategory));
-                $link = $link.".php";
-                $sql = "INSERT INTO `tbl_product`(`prod_parent_id`, `prod_name`, `html`, `prod_available`, `prod_launch_date`) VALUES('1', '$subcategory', '$link', '1', NOW())";
+                // $link = str_replace(" ","",strtolower($subcategory));
+                // $link = $link.".php";
+                $sql = "INSERT INTO `tbl_product`(`prod_parent_id`, `prod_name`, `html`, `prod_available`, `prod_launch_date`) VALUES('1', '$subcategory', '$html', '1', NOW())";
                 $run = mysqli_query($conn, $sql);
                 if($run == 1) {
                     echo "<script>alert('SubCategory Added Successfully');window.location.href = 'createcategory.php';</script>";
@@ -64,10 +64,10 @@ class Product {
         }
     }
 
-    function update_category($id, $name, $isavail, $conn) {
+    function update_category($id, $name, $isavail, $html, $conn) {
         $select = mysqli_query($conn, "SELECT * FROM `tbl_product` WHERE prod_name='$name' and `id` !='$id'");
         if(mysqli_num_rows($select)<1) {
-            $qry = "UPDATE `tbl_product` SET `prod_name` = '$name', `prod_available` = '$isavail' WHERE `id` = '$id'";
+            $qry = "UPDATE `tbl_product` SET `prod_name` = '$name', `prod_available` = '$isavail', `html` = '$html' WHERE `id` = '$id'";
             $run = mysqli_query($conn, $qry);
             if($run == 1) {
                 echo "<script>alert('Data Updated successfully');</script>";
@@ -141,6 +141,18 @@ class Product {
             return $sql;
         } else {
             echo "<script>alert('Some error occured!'); window.location.href = admin/viewproducts.php;</script>";
+        }
+    }
+
+    function cartproductwithid($id, $conn) {
+        $sql = mysqli_query($conn, "SELECT * FROM `tbl_product_description` INNER JOIN `tbl_product` ON tbl_product_description.prod_id = tbl_product.id WHERE `prod_id` = '$id'");
+        // print_r($sql);
+        // die();
+        $rows = mysqli_num_rows($sql);
+        if($rows>0) {
+            return $sql;
+        } else {
+            echo "<script>alert('Some error occured!'); window.location.href = cart.php;</script>";
         }
     }
 

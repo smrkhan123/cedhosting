@@ -10,20 +10,27 @@ if(isset($_SESSION['id'])) {
 	header("location: admin/index.php");
 	}
 }
-if(isset($_GET['addcart'])) {
-    if(!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = array();
-        $_SESSION['cart'][] = array('id'=>$_GET['id']);
-    } else {
+if(isset($_GET['prodid'])) {
+    if(isset($_SESSION['cart'])) {
+        $flag = 0;
         foreach($_SESSION['cart'] as $key => $value) {
-            if($value['id'] == $_GET['id']) {
-                echo "<script>alert('Product already added');window.location.href = 'cart.php';</scripr>";
-            } else {
-                $_SESSION['cart'][] = array('id'=>$_GET['id']);
+            if($value['id'] == $_GET['prodid']) {
+                $flag = 1;
+                echo "<script>alert('Product already added');</script>";
             }
         }
+        if($flag == 0) {
+            $_SESSION['cart'][] = array('id'=>$_GET['prodid']);
+        }
+    } else {
+        // $_SESSION['cart'] = array();
+        $_SESSION['cart'][] = array('id'=>$_GET['prodid']);
     }
-    header("location:cart.php");
+    // echo "<pre>";
+    // print_r($_SESSION['cart']);
+    // echo "</pre>";
+    // die();
+    // header("location:cart.php");
 }
 $id = $_GET['id'];
 $pages = $product->selectData($id, $db->conn);
@@ -73,7 +80,7 @@ include('header.php'); ?>
                                                 <li><strong>location</strong> : <img src="images/india.png"></li>
                                                 </ul>
                                             </div>
-                                            <a href="catpage.php?addcart=1&id=<?php echo $page['id']; ?>">Add To Cart</a>
+                                            <a href="catpage.php?id=<?php echo $getid; ?>&prodid=<?php echo $page['prod_id']; ?>">Add To Cart</a>
                                         </div>
                                     <?php
                                 }
